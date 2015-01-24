@@ -145,7 +145,7 @@ Navigate to the **bottle_heroku_tutorial** folder in a file browser. The app con
     sample_app.py
 ```
 
-The **sample_app.py** file is the app's nerve center. Open it in a text editor to take a look. Here's a link to the file on Github:
+The **sample_app.py** file is the app's nerve center. Open it in a text editor to take a look. Here's a link to the file in this repository:
 
 * <a target="blank" href="https://github.com/chucknado/bottle_heroku_tutorial/blob/master/sample_app.py">sample_app.py</a>
 
