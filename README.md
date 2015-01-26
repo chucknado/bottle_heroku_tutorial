@@ -18,14 +18,9 @@ You also need to install Python and a few libraries, as described next.
 
 #### Install Python
 
-Install version 3 of Python on your computer if you don't already have it. Python is a powerful but beginner-friendly scripting and programming language with a clear and readable syntax. Visit the [Python website](http://www.python.org/about/) to learn more. To download and install it, see <http://www.python.org/download/>.
+Install version 3 of Python on your computer if you don't already have it. Visit the [Python website](http://www.python.org/about/) to learn more. To download and install it, see <http://www.python.org/download/>.
 
 When copying the examples in this tutorial, make sure to indent lines exactly as shown. Indentation matters in Python.
-
-If you're interested in taking a deeper dive into Python after finishing this tutorial, see the following free resources:
-
-- [Think Python](http://www.greenteapress.com/thinkpython/html/index.html) by Allen B. Downey
-- [Dive into Python 3](http://www.diveintopython3.net/) by Mark Pilgrim
 
 #### Install pip
 
@@ -151,7 +146,15 @@ The **sample_app.py** file is the app's nerve center. Open it in a text editor t
 
 The file consist of *routes* that map HTTP requests to functions. The return value of each function is sent in the HTTP response.
 
-For example, when a browser requests the page at the `/home` relative URL, the app looks up the **/home** route and runs the `show_home()` custom function. The `show_home()` function returns the results of the framework's `template()` function in the HTTP response. The `template()` function renders a template named 'home' in HTML. Templates are located in the **views** folder and have **.tpl** file extensions.
+For example, when a browser requests the page at the `/home` relative URL, the app looks up the **/home** route and runs the `show_home()` custom function:
+
+```
+@route('/home')
+def show_home():
+    return template('home')
+```
+
+The `show_home()` function returns the results of the framework's `template()` function in the HTTP response. The `template()` function renders a template named 'home' in HTML. Templates are located in the **views** folder and have **.tpl** file extensions.
 
 Here's the **home.tpl** template:
 
@@ -211,7 +214,7 @@ else:
     run(host='localhost', port=8080, debug=True)
 ```
 
-The sample app checks for the APP_LOCATION environment variable to decide which statement to run. More on the variable later.
+The sample app checks for the APP_LOCATION environment variable to decide which statement to run. You'll set the variable later.
 
 The Bottle framework includes a built-in development server that you can use to test your changes locally before deploying them to a remote server.
 
@@ -344,9 +347,7 @@ Bookmark the URL of your app.
 
 ### [Push updates to Heroku](id:push)
 
-You can start tweaking or adding to the app. See the [Bottle tutorial](http://bottlepy.org/docs/dev/tutorial.html).
-
-Test your changes locally before pushing the changes to Heroku.
+You can start tweaking or adding to the app. See the [Bottle tutorial](http://bottlepy.org/docs/dev/tutorial.html). Test your changes locally before pushing the changes to Heroku, as described next.
 
 <div class="note note"><span class="notetitle">Note: </span>If you make changes to the <strong>sample_app.py</strong> file while the local server is running, you have to stop and restart the server to see the changes. You don't have to restart the server if you make changes to static files like the templates or css. Just refresh the page in the browser.</div>
 
