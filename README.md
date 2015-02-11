@@ -26,7 +26,7 @@ When copying the examples in this tutorial, make sure to indent lines exactly as
 
 After installing Python, install [pip](https://pip.pypa.io/en/latest/index.html), a simple tool for installing and managing Python packages.
 
-<div class="note note" style="margin-bottom:20px;"><span class="notetitle">Note: </span>If you have Python 3.4 or better, you already have pip. Skip ahead.</div>
+Note: If you have Python 3.4 or better, you already have pip. Skip ahead.
 
 1. Right-click [get-pip.py](https://bootstrap.pypa.io/get-pip.py) and download the file.
 2. In your command-line interface, navigate to the folder containing the **get-pip.py** file.
