@@ -137,8 +137,8 @@ If you don't already have an Heroku account, you can sign up for a free account.
 
 2. Check your email to confirm your account. When prompted, set up a password.
 
-    After setting up a password, you'll be taken to a welcome page. 
-    
+    After setting up a password, you'll be taken to a welcome page.
+
 3. Install the Heroku Command Line tool. To download and install it, see [Heroku Command Line](https://devcenter.heroku.com/articles/heroku-command-line) in the Heroku docs.
 
 	As the doc suggests, you should login at the command line immediately after installing the tool.
@@ -166,10 +166,10 @@ This is a one-time-only requirement. Heroku creates a remote git repository that
 
 Before you start, make sure you installed Git. See Install Git above for instructions.
 
-1. In your command-line interface, navigate to the folder that contains the files of your Bottle app. 
+1. In your command-line interface, navigate to the folder that contains the files of your Bottle app.
 
 	If you copied the sample app, it should be the folder that contains the **sample_app.py** file.
-	
+
 2. Run the following command:
 
 	```
@@ -185,7 +185,7 @@ Before you start, make sure you installed Git. See Install Git above for instruc
 	```
 
 	**Important**: Change "your-app-name" to whatever you named your app.
-	
+
 
 <h4 id="prep">Prepare the app files for deployment</h4>
 
@@ -198,10 +198,10 @@ When deploying, the following configuration files need to be included in the web
 1. In a text editor, create a file named **Procfile** and make sure it contains the following line:
 
     ```
-    web: python app.py
+    web: python sample_app.py
     ```
 
-    A Procfile lists the app's process types and the commands to start each process. The Bottle app runs a single web process, which is started by executing the `python app.py` command.
+    A Procfile lists the app's process types and the commands to start each process. The Bottle app runs a single web process, which is started by executing the `python sample_app.py` command.
 
 2. Create a file named **runtime.txt** and make sure it contains the following line, adjusted for your version number:
 
@@ -210,7 +210,7 @@ When deploying, the following configuration files need to be included in the web
    	```
 
     The **runtime.txt** file tells Heroku what Python version to use for your app. The setting ensures Heroku runs your app in the same runtime environment you used locally to develop and test the app.
-    
+
     To find out the version you're using locally, run the following command at the command line:
 
     ```
@@ -230,8 +230,8 @@ When deploying, the following configuration files need to be included in the web
     $ pip show bottle
     ```
 
-	or 
-	
+	or
+
     ```
     $ pip show requests
     ```
@@ -271,14 +271,14 @@ In this step, you deploy the app to Heroku for the first time.
     ```
 
     This is a one-time-only requirement. The code in **sample_app.py** has two different run statements: one for the local server and one for the Heroku server. At runtime, the app checks for the APP_LOCATION environment variable to decide which one to run:
-    
+
     ```
     if os.environ.get('APP_LOCATION') == 'heroku':
         run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
     else:
         run(host='localhost', port=8080, debug=True)
     ```
-   
+
 5. Open and test the app in a browser:
 
 	```
