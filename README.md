@@ -133,13 +133,13 @@ If you don't already have an Heroku account, you can sign up for a free account.
 
 <div class="note note"><span class="notetitle">Note: </span>If you already have an account and have installed the Heroku Command Line tool, you can skip this section.</div>
 
-1. Go to <https://signup.heroku.com/dc>, then enter your name and email, pick Python as your primary development language, then click **Create Free Account**.
+1. Go to <https://signup.heroku.com/dc>, then enter your information, pick Python as your primary development language, then click **Create Free Account**.
 
 2. Check your email to confirm your account. When prompted, set up a password.
 
     After setting up a password, you'll be taken to a welcome page.
 
-3. Install the Heroku Command Line tool. To download and install it, see [Heroku Command Line](https://devcenter.heroku.com/articles/heroku-command-line) in the Heroku docs.
+3. Install the Heroku Command Line Interface. To download and install it, see [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) in the Heroku docs.
 
 	As the doc suggests, you should login at the command line immediately after installing the tool.
 
