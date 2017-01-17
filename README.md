@@ -158,7 +158,18 @@ If you don't already have an Heroku account, you can sign up for a free account.
 	$ heroku create your-app-name
 	```
 
-	Change "your-app-name" to whatever you want to name your app.
+	Change "your-app-name" to whatever you want to name your app. You can expect that common names like “my-app” or “tutorial” will already be taken. You can omit the name and let Heroku generate a random name that you can change it later. Example:
+
+	```
+	$ heroku create
+	```
+
+	Example response:
+
+	```
+	Creating app... done, ⬢ fast-sierra-15737
+	https://fast-sierra-15737.herokuapp.com/ | https://git.heroku.com/fast-sierra-15737.git
+	```
 
 This is a one-time-only requirement. Heroku creates a remote git repository that you'll link to a local Git repo in the next section. This setup will let you use a simple git `push` command to deploy your app to the server.
 
@@ -170,21 +181,33 @@ Before you start, make sure you installed Git. See Install Git above for instruc
 
 	If you copied the sample app, it should be the folder that contains the **sample_app.py** file.
 
-2. Run the following command:
+2. Run the following 3 commands one after the other:
 
 	```
 	$ git init
+	$ git add .
+    $ git commit -m "my first commit"
 	```
 
-	This creates a local Git repository. You'll connect it to a remote repository on Heroku in the next step.
+	This creates a local Git repository and adds you files to it. You'll connect this local repo to a remote repository on Heroku in the next step.
 
-3. Make sure you're logged in to Heroku (`$ heroku login`), then run the following command to set the Heroku repo as the remote repo of your local repo:
+3. Make sure you're logged in to Heroku (`$ heroku login`), then run the following command to set your Heroku app repo as the remote repo of your local repo:
 
 	```
 	$ heroku git:remote -a your-app-name
 	```
 
-	**Important**: Change "your-app-name" to whatever you named your app.
+	**Important**: Change "your-app-name" to whatever is the name of your app. Example:
+
+	```
+	$ heroku git:remote -a fast-sierra-15737
+	```
+
+4.	To verify you set the remote repo, run:
+
+	```
+	$ git remote -v
+	```
 
 
 <h4 id="prep">Prepare the app files for deployment</h4>
@@ -220,8 +243,8 @@ When deploying, the following configuration files need to be included in the web
 3. Create a file named **requirements.txt** and make sure it lists the following libraries:
 
     ```
-    bottle==0.12.9
-    requests==2.11.1
+    bottle==0.12.13
+    requests==2.12.4
     ```
 
 	The file lists all the external libraries the app needs to run. Update the version number of each library, if necessary. To find out the version, run the following commands:
@@ -236,27 +259,25 @@ When deploying, the following configuration files need to be included in the web
     $ pip show requests
     ```
 
-The content of your **app_remote** folder should look like this:
+4. Add the new config files to your local repo:
+
+	```
+	$ git add .
+	$ git commit -a -m "Add config files"
+	```
 
 
 <h4 id="push">Push the app to Heroku</h4>
 
 In this step, you deploy the app to Heroku for the first time.
 
-1. Add and commit all the app files to your local git repository:
-
-    ```
-    $ git add .
-    $ git commit -a -m "Initial commit"
-    ```
-
-2. If not already done, login to Heroku and enter your Heroku email and password when prompted:
+1. If not already done, login to Heroku and enter your Heroku email and password when prompted:
 
     ```
     $ heroku login
     ```
 
-3. Deploy the app:
+2. Deploy the app:
 
     ```
     $ git push heroku master
@@ -264,7 +285,7 @@ In this step, you deploy the app to Heroku for the first time.
 
     The command uploads the app files to the remote git repository on Heroku. Heroku then builds and deploys the app.
 
-4. Set the following APP_LOCATION environment variable in Heroku:
+3. Set the following APP_LOCATION environment variable in Heroku:
 
     ```
     $ heroku config:set APP_LOCATION=heroku
