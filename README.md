@@ -121,7 +121,7 @@ You can run the sample app locally as follows:
 Deploying a Bottle app for the first time consists of the following steps:
 
 * [Get a free Heroku account](#heroku)
-* [Create a remote Git repo on Heroku](#create)
+* [Create a remote Git repo for your app on Heroku](#create)
 * [Create a local Git repo](#git)
 * [Prepare the app files for deployment](#prep)
 * [Push the app to Heroku](#push)
@@ -129,9 +129,9 @@ Deploying a Bottle app for the first time consists of the following steps:
 
 <h4 id="heroku">Get a free Heroku account</h4>
 
-If you don't already have an Heroku account, you can sign up for a free account.
+If you don't already have an Heroku account, you can sign up for a free one.
 
-<div class="note note"><span class="notetitle">Note: </span>If you already have an account and have installed the Heroku Command Line tool, you can skip this section.</div>
+<div class="note note"><span class="notetitle">Note: </span>If you already have an account and have installed the Heroku Command Line Interface (CLI), you can skip this section.</div>
 
 1. Go to <https://signup.heroku.com/dc>, then enter your information, pick Python as your primary development language, then click **Create Free Account**.
 
@@ -144,7 +144,9 @@ If you don't already have an Heroku account, you can sign up for a free account.
 	As the doc suggests, you should login at the command line immediately after installing the tool.
 
 
-<h4 id="create">Create a remote Git repo on Heroku</h4>
+<h4 id="create">Create a remote Git repo for your app on Heroku</h4>
+
+After you push your app to the repo, Heroku will serve the app from there.
 
 1. If not already done, login to Heroku in your command-line interface:
 
@@ -152,7 +154,7 @@ If you don't already have an Heroku account, you can sign up for a free account.
 	$ heroku login
 	```
 
-2. Create the app on Heroku:
+2. Run the following command:
 
 	```
 	$ heroku create your-app-name
