@@ -254,13 +254,13 @@ When deploying, the following configuration files need to be included in the web
 	The file lists all the external libraries the app needs to run. Update the version number of each library, if necessary. To find out the version, run the following commands:
 
     ```
-    $ pip show bottle
+    $ pip3 show bottle
     ```
 
 	or
 
     ```
-    $ pip show requests
+    $ pip3 show requests
     ```
 
 4. Add the new config files to your local repo:
