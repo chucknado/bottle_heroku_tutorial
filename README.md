@@ -22,7 +22,7 @@ Install version 3 of Python on your computer if you don't already have it. Visit
 
 When copying the examples in this tutorial, make sure to indent lines exactly as shown. Indentation matters in Python.
 
-#### Install pip
+#### Install pip (Python 3.3 or earlier)
 
 After installing Python, install [pip](https://pip.pypa.io/en/latest/index.html), a simple tool for installing and managing Python packages.
 
@@ -45,8 +45,10 @@ If you have any trouble, see the [pip instructions](https://pip.pypa.io/en/lates
 After installing pip, use the following pip command to download and install Bottle.
 
 ```
-$ pip install bottle
+$ pip3 install bottle
 ```
+
+If you have Python 3.3 or earlier and you installed pip separately, use `pip` instead of `pip3` on the command line.
 
 If you have any problems, see the [Bottle instructions](http://bottlepy.org/docs/dev/tutorial.html#installation).
 
