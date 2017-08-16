@@ -5,7 +5,8 @@ from bottle import route, template, redirect, static_file, error, run
 
 @route('/home')
 def show_home():
-    return template('home')
+    #return template('home')
+    print("hellow_world")
 
 
 @route('/')
