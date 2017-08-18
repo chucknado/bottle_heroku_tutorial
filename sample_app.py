@@ -31,7 +31,7 @@ def error404(error):
     return template('error', error_msg='404 error. Nothing to see here')
 
 
-if os.environ.get('APP_LOCATION') == 'heroku':
+#if os.environ.get('APP_LOCATION') == 'heroku':
     run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-else:
-    run(host='localhost', port=8080, debug=True)
+#else:
+ #   run(host='localhost', port=8080, debug=True)
