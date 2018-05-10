@@ -22,36 +22,6 @@ Install version 3 of Python on your computer if you don't already have it. Visit
 
 When copying the examples in this tutorial, make sure to indent lines exactly as shown. Indentation matters in Python.
 
-#### Install pip (Python 3.3 or earlier)
-
-After installing Python, install [pip](https://pip.pypa.io/en/latest/index.html), a simple tool for installing and managing Python packages.
-
-Note: If you have Python 3.4 or better, you already have pip. Skip ahead.
-
-1. Right-click [get-pip.py](https://bootstrap.pypa.io/get-pip.py) and download the file.
-2. In your command-line interface, navigate to the folder containing the **get-pip.py** file.
-3. Run the following command:
-
-    ```
-    $ python3 get-pip.py
-    ```
-
-     <div class="note note"><span class="notetitle">Note: </span>In Windows, the prompt is <strong>C:\></strong> instead of <strong>$</strong>.</div>
-
-If you have any trouble, see the [pip instructions](https://pip.pypa.io/en/latest/installing.html#install-pip).
-
-#### Install Bottle
-
-After installing pip, use the following pip command to download and install Bottle.
-
-```
-$ pip3 install bottle
-```
-
-If you have Python 3.3 or earlier and you installed pip separately, use `pip` instead of `pip3` on the command line.
-
-If you have any problems, see the [Bottle instructions](http://bottlepy.org/docs/dev/tutorial.html#installation).
-
 #### Install Git
 
 You'll use [Git](http://git-scm.com), the popular version control system, to push files to the remote server on Heroku.
@@ -66,10 +36,32 @@ Download and run one of the following installers:
 
 <h3 id="bottle">Get the sample Bottle app</h3>
 
-Because this isn't a Bottle tutorial, a set of starter files is provided. Click the following link to download it from Github:
+Because this isn't a Bottle tutorial, a set of starter files is provided. Run the following command in terminal to download it from Github:
 
-<https://github.com/chucknado/bottle_heroku_tutorial/archive/master.zip>
+```commandline
+$ git clone https://github.com/patarapolw/bottle_heroku_tutorial.git
+```
 
+Also, [a set of boilerplate is available from Bottlepy.org itself](https://github.com/bottlepy/bottle-boilerplate). You should consider using a proper boilerplate to get started the right way, in MVC framework.
+
+After getting the sample Bottle app, [you should consider doing install and everything inside a virtual environment before deploying to Heroku.](http://docs.python-guide.org/en/latest/dev/virtualenvs/) The author of Heroku himself recommends [pipenv](https://docs.pipenv.org).
+
+```commandline
+$ pip3 install pipenv
+$ pipenv --three
+$ pipenv install
+$ pipenv shell
+```
+
+#### Install Bottle
+
+After installing pipenv, use the following pipenv command to download and install Bottle.
+
+```python
+$ pipenv install bottle
+```
+
+A file named Procfile will be created. This will be discussed later.
 
 #### Bottle basics
 
@@ -77,22 +69,24 @@ To keep things simple, the sample app simulates an API request that gets the nam
 
 Navigate to the **bottle\_heroku\_tutorial** folder in a file browser. The **sample_app.py** file is the app's nerve center. Open it in a text editor to take a look. Here's a link to the file in this repository:
 
-* <a target="blank" href="https://github.com/chucknado/bottle_heroku_tutorial/blob/master/sample_app.py">sample_app.py</a>
+```commandline
+$ git clone https://github.com/patarapolw/bottle_heroku_tutorial.git
+```
 
 The file consist of *routes* that map HTTP requests to functions. The return value of each function is sent in the HTTP response. To learn more, see [Request Routing](http://bottlepy.org/docs/dev/tutorial.html#request-routing) in the Bottle docs.
 
 Routes typically specify templates to render for the response. To learn more, see [Templates](http://bottlepy.org/docs/dev/tutorial.html#templates) in the Bottle docs.
 
-The **sample_app.py** file calls the framework's `run()` function to run the app on a local web server or on Heroku:
+The **sample_app.py** file calls the framework's `app.run()` function to run the app on a local web server or on Heroku:
 
-```
-if os.environ.get('APP_LOCATION') == 'heroku':
-    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+```python
+if 'DYNO' in os.environ:
+   app.run(host='0.0.0.0', port=os.environ.get('PORT', 5000))
 else:
-    run(host='localhost', port=8080, debug=True)
+   app.run(host='localhost', port=8080, debug=True)
 ```
 
-The sample app checks for the APP_LOCATION environment variable to decide which statement to run. You'll set the variable later.
+The sample app checks for the DYNO environment variable to decide which statement to run. DYNO environment variable is probably only availble on Heroku.
 
 The Bottle framework includes a built-in development server that you can use to test your changes locally before deploying them to a remote server.
 
@@ -116,8 +110,6 @@ You can run the sample app locally as follows:
 
 5. When you're done, switch to your command-line interface and press Ctrl+C to shut down the server.
 
-
-
 <h3 id="deploy">Deploy the Bottle app on Heroku</h3>
 
 Deploying a Bottle app for the first time consists of the following steps:
@@ -128,6 +120,7 @@ Deploying a Bottle app for the first time consists of the following steps:
 * [Prepare the app files for deployment](#prep)
 * [Push the app to Heroku](#push)
 
+You might also see the [official tutorial from Heroku (for Django)](https://devcenter.heroku.com/articles/getting-started-with-python).
 
 <h4 id="heroku">Get a free Heroku account</h4>
 
@@ -219,8 +212,7 @@ Before you start, make sure you installed Git. See Install Git above for instruc
 When deploying, the following configuration files need to be included in the web app's root directory:
 
 * Procfile
-* runtime.txt
-* requirements.txt
+* either Pipfile or requirements.txt
 
 1. In a text editor, create a file named **Procfile** and make sure it contains the following line:
 
@@ -230,38 +222,7 @@ When deploying, the following configuration files need to be included in the web
 
     A Procfile lists the app's process types and the commands to start each process. The Bottle app runs a single web process, which is started by executing the `python sample_app.py` command.
 
-2. Create a file named **runtime.txt** and make sure it contains the following line, adjusted for your version number:
-
-    ```
-    python-3.5.2
-   	```
-
-    The **runtime.txt** file tells Heroku what Python version to use for your app. The setting ensures Heroku runs your app in the same runtime environment you used locally to develop and test the app.
-
-    To find out the version you're using locally, run the following command at the command line:
-
-    ```
-    $ python3 --version
-    ```
-
-3. Create a file named **requirements.txt** and make sure it lists the following libraries:
-
-    ```
-    bottle==0.12.13
-    requests==2.12.4
-    ```
-
-	The file lists all the external libraries the app needs to run. Update the version number of each library, if necessary. To find out the version, run the following commands:
-
-    ```
-    $ pip3 show bottle
-    ```
-
-	or
-
-    ```
-    $ pip3 show requests
-    ```
+3. Pipfile should already be generated when you run `pipenv install bottle`.
 
 4. Add the new config files to your local repo:
 
@@ -289,22 +250,7 @@ In this step, you deploy the app to Heroku for the first time.
 
     The command uploads the app files to the remote git repository on Heroku. Heroku then builds and deploys the app.
 
-3. Set the following APP_LOCATION environment variable in Heroku:
-
-    ```
-    $ heroku config:set APP_LOCATION=heroku
-    ```
-
-    This is a one-time-only requirement. The code in **sample_app.py** has two different run statements: one for the local server and one for the Heroku server. At runtime, the app checks for the APP_LOCATION environment variable to decide which one to run:
-
-    ```
-    if os.environ.get('APP_LOCATION') == 'heroku':
-        run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-    else:
-        run(host='localhost', port=8080, debug=True)
-    ```
-
-5. Open and test the app in a browser:
+3. Open and test the app in a browser:
 
 	```
 	$ heroku open
@@ -348,4 +294,3 @@ You can start tweaking or adding to the app. See the [Bottle tutorial](http://bo
 	```
 	$ heroku open
 	```
-

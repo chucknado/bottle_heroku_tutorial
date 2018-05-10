@@ -1,37 +1,39 @@
 ﻿import os
 
-from bottle import route, template, redirect, static_file, error, run
+from bottle import Bottle, template, redirect, static_file
+
+app = Bottle()
 
 
-@route('/home')
+@app.route('/home')
 def show_home():
-    #return template('home')
-    print("hellow_world")
+    return template('home')
 
 
-@route('/')
+@app.route('/')
 def handle_root_url():
     redirect('/home')
 
 
-@route('/profile')
+@app.route('/profile')
 def make_request():
     # make an API request here
     profile_data = {'name': 'Marcel Hellkamp', 'role': 'Developer'}
     return template('details', data=profile_data)
 
 
-@route('/css/<filename>')
+@app.route('/css/<filename>')
 def send_css(filename):
     return static_file(filename, root='static/css')
 
 
-@error(404)
+@app.error(404)
 def error404(error):
     return template('error', error_msg='404 error. Nothing to see here')
 
 
-#if os.environ.get('APP_LOCATION') == 'heroku':
-   bottle.run(server='gevent', host='0.0.0.0', port=os.environ.get('PORT', 5000))
-#else:
- #   run(host='localhost', port=8080, debug=True)
+if __name__ == '__main__':
+    if 'DYNO' in os.environ:
+       app.run(host='0.0.0.0', port=os.environ.get('PORT', 5000))
+    else:
+       app.run(host='localhost', port=8080, debug=True)
