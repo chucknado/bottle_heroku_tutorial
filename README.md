@@ -40,6 +40,30 @@ Note: If you have Python 3.4 or better, you already have pip. Skip ahead.
 
 If you have any trouble, see the [pip instructions](https://pip.pypa.io/en/latest/installing.html#install-pip).
 
+#### Quickstart
+All below steps in one compact batch. Less experienced users: scroll down, to read the details.
+
+```
+git clone https://github.com/drandreaskrueger/bottle_heroku_tutorial.git    # change this to your fork
+cd bottle_heroku_tutorial/
+python3 -m venv env                # virtualenv keeps pip installed dependencies local to this project
+source env/bin/activate
+pip3 install --upgrade pip bottle
+python3 sample_app.py
+# open http://localhost:8080
+
+sudo apt install git snapd
+sudo snap install heroku
+heroku login --interactive    # if not several heroku accounts, browser login is easier: drop --interactive.
+heroku create bottle-heroku-tutorial-2           # try until you find an unused name
+heroku git:remote -a bottle-heroku-tutorial-2    # same name again
+git remote -v
+git push heroku master
+heroku open
+```
+
+Now step by step:
+
 #### Install Bottle
 
 After installing pip, use the following pip command to download and install Bottle.
