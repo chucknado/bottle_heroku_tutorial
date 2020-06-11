@@ -68,7 +68,7 @@ Download and run one of the following installers:
 
 Because this isn't a Bottle tutorial, a set of starter files is provided. Click the following link to download it from Github:
 
-<https://github.com/chucknado/bottle_heroku_tutorial/archive/master.zip>
+<https://github.com/drandreaskrueger/bottle_heroku_tutorial/archive/master.zip>
 
 
 #### Bottle basics
@@ -92,7 +92,7 @@ else:
     run(host='localhost', port=8080, debug=True)
 ```
 
-The sample app checks for the APP_LOCATION environment variable to decide which statement to run. You'll set the variable later.
+The sample app checks for the PYTHONHOME environment variable to decide which statement to run. On heroku it reads '/app/.heroku/python', while (e.g. on two of my machines) it might not even be set at all.
 
 The Bottle framework includes a built-in development server that you can use to test your changes locally before deploying them to a remote server.
 
