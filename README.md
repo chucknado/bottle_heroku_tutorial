@@ -9,8 +9,39 @@ Steps covered in this tutorial:
 4. [Deploy the Bottle app on Heroku](#deploy)
 5. [Push updates to Heroku](#push)
 
+### Quickstart
+All below steps in one compact batch. Less experienced users: scroll down, to read the details.
 
-<h3 id="reqs">What you need</h3>
+```
+sudo apt install git snapd
+sudo snap install heroku
+
+git clone https://github.com/drandreaskrueger/bottle_heroku_tutorial.git    # change this to your fork.
+cd bottle_heroku_tutorial/
+
+python3 -m venv env                # virtualenv keeps pip installed dependencies local to this project.
+source env/bin/activate
+pip3 install --upgrade pip bottle
+
+python3 sample_app.py              # test the sample app locally
+# open http://localhost:8080
+
+heroku login --interactive  # if not several heroku accounts, browser login easier, drop: --interactive
+heroku create bottle-heroku-tutorial-2  # try until you find an unused name, or just use heroku create.
+
+heroku git:remote -a bottle-heroku-tutorial-2          # again the same name
+git remote -v
+
+git push heroku master     # watch heroku git server answers - some errors would already be found then!
+heroku open
+
+heroku logs --tail           # watch this while browsing https://bottle-heroku-tutorial-2.herokuapp.com
+heroku apps:destroy bottle-heroku-tutorial-2 --confirm bottle-heroku-tutorial-2    # and ... it's gone.
+```
+
+Now step by step:
+
+<h2 id="reqs">What you need</h2>
 
 You need a text editor and a command-line interface like the command prompt in Windows or the Terminal on the Mac.
 
@@ -40,29 +71,6 @@ Note: If you have Python 3.4 or better, you already have pip. Skip ahead.
 
 If you have any trouble, see the [pip instructions](https://pip.pypa.io/en/latest/installing.html#install-pip).
 
-#### Quickstart
-All below steps in one compact batch. Less experienced users: scroll down, to read the details.
-
-```
-git clone https://github.com/drandreaskrueger/bottle_heroku_tutorial.git    # change this to your fork
-cd bottle_heroku_tutorial/
-python3 -m venv env                # virtualenv keeps pip installed dependencies local to this project
-source env/bin/activate
-pip3 install --upgrade pip bottle
-python3 sample_app.py
-# open http://localhost:8080
-
-sudo apt install git snapd
-sudo snap install heroku
-heroku login --interactive    # if not several heroku accounts, browser login is easier: drop --interactive.
-heroku create bottle-heroku-tutorial-2           # try until you find an unused name
-heroku git:remote -a bottle-heroku-tutorial-2    # same name again
-git remote -v
-git push heroku master
-heroku open
-```
-
-Now step by step:
 
 #### Install Bottle
 
