@@ -9,8 +9,39 @@ Steps covered in this tutorial:
 4. [Deploy the Bottle app on Heroku](#deploy)
 5. [Push updates to Heroku](#push)
 
+### Quickstart
+All below steps in one compact batch. Less experienced users: scroll down, to read the details.
 
-<h3 id="reqs">What you need</h3>
+```
+sudo apt install git snapd
+sudo snap install heroku
+
+git clone https://github.com/drandreaskrueger/bottle_heroku_tutorial.git    # change this to your fork.
+cd bottle_heroku_tutorial/
+
+python3 -m venv env                # virtualenv keeps pip installed dependencies local to this project.
+source env/bin/activate
+pip3 install --upgrade pip bottle
+
+python3 sample_app.py              # test the sample app locally
+# open http://localhost:8080
+
+heroku login --interactive  # if not several heroku accounts, browser login easier, drop: --interactive
+heroku create bottle-heroku-tutorial-2  # try until you find an unused name, or just use heroku create.
+
+heroku git:remote -a bottle-heroku-tutorial-2          # again the same name
+git remote -v
+
+git push heroku master     # watch heroku git server answers - some errors would already be found then!
+heroku open
+
+heroku logs --tail           # watch this while browsing https://bottle-heroku-tutorial-2.herokuapp.com
+heroku apps:destroy bottle-heroku-tutorial-2 --confirm bottle-heroku-tutorial-2    # and ... it's gone.
+```
+
+Now step by step:
+
+<h2 id="reqs">What you need</h2>
 
 You need a text editor and a command-line interface like the command prompt in Windows or the Terminal on the Mac.
 
@@ -40,6 +71,7 @@ Note: If you have Python 3.4 or better, you already have pip. Skip ahead.
 
 If you have any trouble, see the [pip instructions](https://pip.pypa.io/en/latest/installing.html#install-pip).
 
+
 #### Install Bottle
 
 After installing pip, use the following pip command to download and install Bottle.
@@ -68,7 +100,7 @@ Download and run one of the following installers:
 
 Because this isn't a Bottle tutorial, a set of starter files is provided. Click the following link to download it from Github:
 
-<https://github.com/chucknado/bottle_heroku_tutorial/archive/master.zip>
+<https://github.com/drandreaskrueger/bottle_heroku_tutorial/archive/master.zip>
 
 
 #### Bottle basics
@@ -86,13 +118,13 @@ Routes typically specify templates to render for the response. To learn more, se
 The **sample_app.py** file calls the framework's `run()` function to run the app on a local web server or on Heroku:
 
 ```
-if os.environ.get('APP_LOCATION') == 'heroku':
+if "heroku" in os.environ.get('PYTHONHOME', ''):
     run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 else:
     run(host='localhost', port=8080, debug=True)
 ```
 
-The sample app checks for the APP_LOCATION environment variable to decide which statement to run. You'll set the variable later.
+The sample app checks for the PYTHONHOME environment variable to decide which statement to run. On heroku it reads '/app/.heroku/python', while (e.g. on two of my machines) it might not even be set at all.
 
 The Bottle framework includes a built-in development server that you can use to test your changes locally before deploying them to a remote server.
 
@@ -233,7 +265,7 @@ When deploying, the following configuration files need to be included in the web
 2. Create a file named **runtime.txt** and make sure it contains the following line, adjusted for your version number:
 
     ```
-    python-3.5.2
+    python-3.7.7
    	```
 
     The **runtime.txt** file tells Heroku what Python version to use for your app. The setting ensures Heroku runs your app in the same runtime environment you used locally to develop and test the app.
@@ -247,8 +279,8 @@ When deploying, the following configuration files need to be included in the web
 3. Create a file named **requirements.txt** and make sure it lists the following libraries:
 
     ```
-    bottle==0.12.13
-    requests==2.12.4
+    bottle==0.12.18
+    requests==2.23.0
     ```
 
 	The file lists all the external libraries the app needs to run. Update the version number of each library, if necessary. To find out the version, run the following commands:
@@ -290,6 +322,8 @@ In this step, you deploy the app to Heroku for the first time.
     The command uploads the app files to the remote git repository on Heroku. Heroku then builds and deploys the app.
 
 3. Set the following APP_LOCATION environment variable in Heroku:
+
+   **NOT NEEDED if using the trick `if "heroku" in os.environ.get('PYTHONHOME', ''):` instead.**
 
     ```
     $ heroku config:set APP_LOCATION=heroku
