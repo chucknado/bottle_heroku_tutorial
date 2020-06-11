@@ -233,7 +233,7 @@ When deploying, the following configuration files need to be included in the web
 2. Create a file named **runtime.txt** and make sure it contains the following line, adjusted for your version number:
 
     ```
-    python-3.5.2
+    python-3.7.7
    	```
 
     The **runtime.txt** file tells Heroku what Python version to use for your app. The setting ensures Heroku runs your app in the same runtime environment you used locally to develop and test the app.
@@ -247,8 +247,8 @@ When deploying, the following configuration files need to be included in the web
 3. Create a file named **requirements.txt** and make sure it lists the following libraries:
 
     ```
-    bottle==0.12.13
-    requests==2.12.4
+    bottle==0.12.18
+    requests==2.23.0
     ```
 
 	The file lists all the external libraries the app needs to run. Update the version number of each library, if necessary. To find out the version, run the following commands:
@@ -290,6 +290,8 @@ In this step, you deploy the app to Heroku for the first time.
     The command uploads the app files to the remote git repository on Heroku. Heroku then builds and deploys the app.
 
 3. Set the following APP_LOCATION environment variable in Heroku:
+
+   **NOT NEEDED if using the trick `if "heroku" in os.environ.get('PYTHONHOME', ''):` instead.**
 
     ```
     $ heroku config:set APP_LOCATION=heroku
