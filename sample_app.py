@@ -26,8 +26,8 @@ def send_css(filename):
 
 
 @error(404)
-def error404(error):
-    return template('error', error_msg='404 error. Nothing to see here')
+def error404(e):
+    return template('error', error_msg='404 error. Nothing to see here.')
 
 
 if os.environ.get('APP_LOCATION') == 'heroku':
