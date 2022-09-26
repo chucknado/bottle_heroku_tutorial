@@ -2,6 +2,8 @@
 
 This tutorial shows how to set up and deploy a Bottle web app on Heroku. [Bottle](http://bottlepy.org/docs/dev/) is a Python micro web framework that's easy to learn and use.
 
+**Note**: Starting November 28, 2022, Heroku will no longer offer a free tier.
+
 Steps covered in this tutorial:
 
 1. [What you need](#reqs)
@@ -22,24 +24,6 @@ Install version 3 of Python on your computer if you don't already have it. Visit
 
 When copying the examples in this tutorial, make sure to indent lines exactly as shown. Indentation matters in Python.
 
-#### Install pip (Python 3.3 or earlier)
-
-After installing Python, install [pip](https://pip.pypa.io/en/latest/index.html), a simple tool for installing and managing Python packages.
-
-Note: If you have Python 3.4 or better, you already have pip. Skip ahead.
-
-1. Right-click [get-pip.py](https://bootstrap.pypa.io/get-pip.py) and download the file.
-2. In your command-line interface, navigate to the folder containing the **get-pip.py** file.
-3. Run the following command:
-
-    ```
-    $ python3 get-pip.py
-    ```
-
-     <div class="note note"><span class="notetitle">Note: </span>In Windows, the prompt is <strong>C:\></strong> instead of <strong>$</strong>.</div>
-
-If you have any trouble, see the [pip instructions](https://pip.pypa.io/en/latest/installing.html#install-pip).
-
 #### Install Bottle
 
 After installing pip, use the following pip command to download and install Bottle.
@@ -47,8 +31,6 @@ After installing pip, use the following pip command to download and install Bott
 ```
 $ pip3 install bottle
 ```
-
-If you have Python 3.3 or earlier and you installed pip separately, use `pip` instead of `pip3` on the command line.
 
 If you have any problems, see the [Bottle instructions](http://bottlepy.org/docs/dev/tutorial.html#installation).
 
@@ -79,9 +61,9 @@ Navigate to the **bottle\_heroku\_tutorial** folder in a file browser. The **sam
 
 * <a target="blank" href="https://github.com/chucknado/bottle_heroku_tutorial/blob/master/sample_app.py">sample_app.py</a>
 
-The file consist of *routes* that map HTTP requests to functions. The return value of each function is sent in the HTTP response. To learn more, see [Request Routing](http://bottlepy.org/docs/dev/tutorial.html#request-routing) in the Bottle docs.
+The file consist of *routes* that map HTTP requests to functions. The return value of each function is sent in the HTTP response. To learn more, see [Request Routing](https://bottlepy.org/docs/dev/tutorial.html#request-routing) in the Bottle docs.
 
-Routes typically specify templates to render for the response. To learn more, see [Templates](http://bottlepy.org/docs/dev/tutorial.html#templates) in the Bottle docs.
+Routes typically specify templates to render for the response. To learn more, see [Templates](https://bottlepy.org/docs/dev/tutorial.html#templates) in the Bottle docs.
 
 The **sample_app.py** file calls the framework's `run()` function to run the app on a local web server or on Heroku:
 
@@ -122,20 +104,20 @@ You can run the sample app locally as follows:
 
 Deploying a Bottle app for the first time consists of the following steps:
 
-* [Get a free Heroku account](#heroku)
+* [Get an Heroku account](#heroku)
 * [Create a remote Git repo for your app on Heroku](#create)
 * [Create a local Git repo](#git)
 * [Prepare the app files for deployment](#prep)
 * [Push the app to Heroku](#push)
 
 
-<h4 id="heroku">Get a free Heroku account</h4>
+<h4 id="heroku">Get an Heroku account</h4>
 
-If you don't already have an Heroku account, you can sign up for a free one.
+If you don't already have an Heroku account, you can sign up for one.
 
 <div class="note note"><span class="notetitle">Note: </span>If you already have an account and have installed the Heroku Command Line Interface (CLI), you can skip this section.</div>
 
-1. Go to <https://signup.heroku.com/dc>, then enter your information, pick Python as your primary development language, then click **Create Free Account**.
+1. Go to <https://signup.heroku.com/dc>, then enter your information, pick Python as your primary development language, then click **Create Account**.
 
 2. Check your email to confirm your account. When prompted, set up a password.
 
@@ -150,7 +132,7 @@ If you don't already have an Heroku account, you can sign up for a free one.
 
 After you push your app to the repo, Heroku will serve the app from there.
 
-1. If not already done, login to Heroku in your command-line interface:
+1. If not already done, log in to Heroku in your command-line interface:
 
 	```
 	$ heroku login
@@ -233,7 +215,7 @@ When deploying, the following configuration files need to be included in the web
 2. Create a file named **runtime.txt** and make sure it contains the following line, adjusted for your version number:
 
     ```
-    python-3.5.2
+    python-3.7.14
    	```
 
     The **runtime.txt** file tells Heroku what Python version to use for your app. The setting ensures Heroku runs your app in the same runtime environment you used locally to develop and test the app.
@@ -247,8 +229,8 @@ When deploying, the following configuration files need to be included in the web
 3. Create a file named **requirements.txt** and make sure it lists the following libraries:
 
     ```
-    bottle==0.12.13
-    requests==2.12.4
+    bottle==0.12.23
+    requests==2.28.1
     ```
 
 	The file lists all the external libraries the app needs to run. Update the version number of each library, if necessary. To find out the version, run the following commands:
@@ -317,7 +299,7 @@ Bookmark the URL of your app.
 
 <h3 id="push">Push updates to Heroku</h3>
 
-You can start tweaking or adding to the app. See the [Bottle tutorial](http://bottlepy.org/docs/dev/tutorial.html). Test your changes locally before pushing the changes to Heroku, as described next.
+You can start tweaking or adding to the app. See the [Bottle tutorial](https://bottlepy.org/docs/dev/tutorial.html). Test your changes locally before pushing the changes to Heroku, as described next.
 
 **Note**: If you make changes to the **sample_app.py** file while the local server is running, you have to stop and restart the server to see the changes. You don't have to restart the server if you make changes to static files like the templates or css. Just refresh the page in the browser.
 
